@@ -38,35 +38,36 @@ Chakra、V8 和 SpiderMonkey 将受以上因素的影响，表现出不尽相同
 使用 IIFE 避免 Lift 效应。
 在引用函数外部变量时，函数执行时外部变量的值由运行时决定而非定义时，最典型的场景如下：
 
-    var tasks = [];
-    for (var i = 0; i < 5; i++) {
-        tasks[tasks.length] = function () {
-            console.log(Current cursor is at  + i);
-        };
-    }
-
-    var len = tasks.length;
-    while (len--) {
-        tasks[len]();
-    }
-以上代码对 tasks 中的函数的执行均会输出 Current cursor is at 5，往往不符合预期。
-
-此现象称为 Lift 效应 。
-解决的方式是通过额外加上一层闭包函数，将需要的外部变量作为参数传递来解除变量的绑定关系：
         var tasks = [];
         for (var i = 0; i < 5; i++) {
-         
-            tasks[tasks.length] = (function (i) {
-                return function () {
-                    console.log('Current cursor is at'  + i);
-                };
-            })(i);
-     
+            tasks[tasks.length] = function () {
+                console.log(Current cursor is at  + i);
+            };
+        }
+
         var len = tasks.length;
         while (len--) {
             tasks[len]();
         }
-           }
+以上代码对 tasks 中的函数的执行均会输出 Current cursor is at 5，往往不符合预期。
+
+此现象称为 Lift 效应 。
+解决的方式是通过额外加上一层闭包函数，将需要的外部变量作为参数传递来解除变量的绑定关系：
+        
+            var tasks = [];
+            for (var i = 0; i < 5; i++) {
+             
+                tasks[tasks.length] = (function (i) {
+                    return function () {
+                        console.log('Current cursor is at'  + i);
+                    };
+                })(i);
+         
+            var len = tasks.length;
+            while (len--) {
+                tasks[len]();
+            }
+               }
 
 
 有两种作用域：全局作用域和函数作用域。函数内部可以直接读取全局变量。
@@ -132,9 +133,10 @@ JavaScript引擎规定，如果function关键字出现在行首，一律解释�
 
 
 闭包封装
+
     (function(){
         var q=0;
-         var w=0;
+        var w=0;
         var exp={};
         function add(m,n){
             return m+n;
@@ -209,12 +211,13 @@ function这个关键字即可以当作语句，也可以当作表达式。为了
 innerFun() 自己的变量对象、outFun()的变量对象、全局变量对象。
 
 特例：通过构造器创建的函数是访问不到外层的局部变量的。
-    function outer() {
-        var i = 1;
-        var func = new Function("console.log(typeof i);");
-        func(); // undefined
-    }
-    console.log(outer());
+    
+        function outer() {
+            var i = 1;
+            var func = new Function("console.log(typeof i);");
+            func(); // undefined
+        }
+        console.log(outer());
 
 延长作用域链
 有些语句可以在作用域链的前端临时增加一个变量对象，
@@ -229,24 +232,26 @@ with 语句
 函数本身也是一个值，也有自己的作用域。
 
 它的作用域与变量一样，就是其声明时所在的作用域，与其运行时所在的作用域无关。
-    var a = 1;
-    var x = function () {
-      console.log(a);
-    };
-    function f() {
-      var a = 2;
-      x();
-    }
-    console.log(f()) // 1
-    
+
+        var a = 1;
+        var x = function () {
+          console.log(a);
+        };
+        function f() {
+          var a = 2;
+          x();
+        }
+        console.log(f()) // 1
+
 同样的，函数体内部声明的函数，作用域绑定函数体内部。
-    function foo() {
-      var x = 1;
-      function bar() {
-        console.log(x);
-      }
-      return bar;
-    }
-    var x = 2;
-    var f = foo();
-    console.log(f())//1
+
+        function foo() {
+          var x = 1;
+          function bar() {
+            console.log(x);
+          }
+          return bar;
+        }
+        var x = 2;
+        var f = foo();
+        console.log(f())//1
