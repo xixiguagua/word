@@ -40,10 +40,11 @@ HTML5 的本地存储 API 中的 localStorage 与 sessionStorage 在使用方法
 使用方法：
 ①配置manifest文件
 页面上：
-    <!DOCTYPE HTML>
-    <html manifest="demo.appcache">
-    ...
-    </html>
+
+        <!DOCTYPE HTML>
+        <html manifest="demo.appcache">
+        ...
+        </html>
 
 Manifest 文件：
 

@@ -109,39 +109,36 @@ this的使用可以分成以下几个场合。
 
 在Node中，this的指向又分成两种情况。全局环境中，this指向全局对象global；模块环境中，this指向module.exports。
 
-
 由于this的指向是不确定的，所以切勿在函数中包含多层的this。
 
-    var o = {
-      f1: function () {
-        console.log(this);
-        var f2 = function () {
-          console.log(this);
-        }();
-      }
-    }
-
-    o.f1()
-    // Object
-    // Window
+        var o = {
+          f1: function () {
+            console.log(this);
+            var f2 = function () {
+              console.log(this);
+            }();
+          }
+        }
+        o.f1()
+        // Object
+        // Window
 
 上面代码包含两层this，结果运行后，第一层指向该对象，第二层指向全局对象。
 
 一个解决方法是在第二层改用一个指向外层this的变量。
 
-  var o = {
-    f1: function() {
-      console.log(this);
-      var that = this;
-      var f2 = function() {
-        console.log(that);
-      }();
-    }
-  }
-
-  o.f1()
-  // Object
-  // Object
+      var o = {
+        f1: function() {
+          console.log(this);
+          var that = this;
+          var f2 = function() {
+            console.log(that);
+          }();
+        }
+      }
+      o.f1()
+      // Object
+      // Object
 
 JavaScript 提供了严格模式，也可以硬性避免这种问题。
 在严格模式下，如果函数内部的this指向顶层对象，就会报错。

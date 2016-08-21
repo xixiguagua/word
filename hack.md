@@ -1,5 +1,6 @@
 
 IE专用的条件注释
+
 		<!--其他浏览器 -->
 		<link rel="stylesheet" type="text/css" href="css.css" />
 		<!--[if IE 7]>
