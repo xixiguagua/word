@@ -264,17 +264,19 @@ Task A产生异常的例子TaskA → onRejected → FinalTask 这个流程Task B
 每个方法中 return 的值不仅只局限于字符串或者数值类型，也可以是对象或者promise对象等复杂类型
 
 每次调用then都会返回一个新创建的promise对象
-        var aPromise = new Promise(function (resolve) {
-            resolve(100);
-        });
-        var thenPromise = aPromise.then(function (value) {
-            console.log(value);
-        });
-        var catchPromise = thenPromise.catch(function (error) {
-            console.error(error);
-        });
-        console.log(aPromise !== thenPromise); // => true
-        console.log(thenPromise !== catchPromise);// => true
+
+                var aPromise = new Promise(function (resolve) {
+                    resolve(100);
+                });
+                var thenPromise = aPromise.then(function (value) {
+                    console.log(value);
+                });
+                var catchPromise = thenPromise.catch(function (error) {
+                    console.error(error);
+                });
+                console.log(aPromise !== thenPromise); // => true
+                console.log(thenPromise !== catchPromise);// => true
+                
 
 第1种写法中并没有使用promise的方法链方式，这在Promise中是应该极力避免的写法。这种写法中的 then 调用几乎是在同时开始执行的，而且传给每个 then 方法的 value 值都是 100 。
 
