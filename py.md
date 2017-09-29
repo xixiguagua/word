@@ -4,6 +4,7 @@
 都只占用一个栈帧，不会出现栈溢出的情况。
 
 递归调用
+'''
 def fact(n):
     if n==1:
         return 1
@@ -11,6 +12,7 @@ def fact(n):
     
 
 尾递归优化
+'''
 def fact(n):
     return fact_iter(n, 1)
 
@@ -18,7 +20,7 @@ def fact_iter(num, product):
     if num == 1:
         return product
     return fact_iter(num - 1, num * product)
-    
+'''    
     
 可以看到，return fact_iter(num - 1, num * product)仅返回递归函数本身，num - 1和num * product在函数调用前就会被计算，不影响函数调用。
 
