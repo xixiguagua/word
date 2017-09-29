@@ -24,3 +24,17 @@ def fact_iter(num, product):
 
 遗憾的是，大多数编程语言没有针对尾递归做优化，Python解释器也没有做优化，所以，即使把上面的fact(n)函数改成尾递归方式，也会导致栈溢出。
 
+
+可以直接作用于for循环的数据类型有以下几种：
+
+一类是集合数据类型，如list、tuple、dict、set、str等；
+
+一类是generator，包括生成器和带yield的generator function。
+
+这些可以直接作用于for循环的对象统称为可迭代对象：Iterable。
+
+可以使用isinstance()判断一个对象是否是Iterable对象
+
+可以被next()函数调用并不断返回下一个值的对象称为迭代器：Iterator
+
+生成器都是Iterator对象，但list、dict、str虽然是Iterable，却不是Iterator。
